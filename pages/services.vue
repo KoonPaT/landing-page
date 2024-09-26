@@ -15,7 +15,7 @@
                 <h4 class="text-xl sm:text-2xl font-bold text-blue-700 mb-4">บริการ Hosting</h4>
                 <p class="text-gray-600 mb-4">โฮสติ้งที่มีความเสถียรภาพสูงสุดและการบริการที่รวดเร็ว</p>
             </div>
-            <!-- Service 3 -->
+            <!-- Service 3ss -->
             <div class="p-6 bg-gray-100 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                 <h4 class="text-xl sm:text-2xl font-bold text-blue-700 mb-4">บริการ Support</h4>
                 <p class="text-gray-600 mb-4">การช่วยเหลือด้านเทคนิคตลอด 24 ชั่วโมง</p>
