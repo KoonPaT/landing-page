@@ -2,7 +2,8 @@
   <div>
     <section class="bg-gradient-to-r from-blue-100 to-white py-10 sm:py-20">
       <div class="max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl sm:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">ระบบ POS และ Hosting ที่ดีที่สุด</h2>
+        <h2 class="text-3xl sm:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">ระบบ POS และ Hosting Hosting ที่ดีที่สุด
+        </h2>
         <p class="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
           CodeCraftCloud ช่วยคุณในการจัดการระบบ POS อย่างง่ายดาย พร้อมทั้งให้บริการ Hosting
           ที่มีความเสถียรและปลอดภัยสูงสุด
