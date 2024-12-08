@@ -7,8 +7,11 @@
 
         <!-- รูปโปรไฟล์ -->
         <div class="text-center mb-4">
-            <img src="../images/profile.jpg" alt="Profile Picture" class="rounded-circle img-thumbnail"
-                style="width: 200px; height: 200px;" />
+            <div class="position-relative d-inline-block rounded-circle shadow"
+                style="width: 300px; height: 300px; overflow: hidden; background-color: transparent;">
+                <img src="../images/profile.jpeg" alt="Profile Picture" class="w-100 h-100"
+                    style="object-fit: cover; object-position: center;" />
+            </div>
         </div>
         <div class="text-center mb-5">
             <h1>PHATTY</h1>
