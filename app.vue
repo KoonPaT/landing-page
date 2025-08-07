@@ -19,7 +19,7 @@
     </div>
     
     <!-- Main Content -->
-    <div v-else class="main-content" :class="{ 'fade-in': !isLoading }">
+    <div v-show="!isLoading" class="main-content" :class="{ 'fade-in': !isLoading }">
       <NuxtPage />
     </div>
   </div>
@@ -63,8 +63,8 @@ if (process.client) {
     }
   }, 100)
 } else {
-  // For SSR, skip loading screen
-  isLoading.value = false
+  // For SSR, show loading screen initially
+  isLoading.value = true
 }
 </script>
 
