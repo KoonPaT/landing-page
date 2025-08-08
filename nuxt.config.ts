@@ -4,11 +4,17 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   pages: true,
   css: [
-    'bootstrap/dist/css/bootstrap.css',
+    '@/assets/css/bootstrap-minimal.css',
     'bootstrap-icons/font/bootstrap-icons.css',
   ],
   build: {
     transpile: ['bootstrap-vue-3'],
+  },
+  nitro: {
+    compressPublicAssets: true,
+  },
+  experimental: {
+    payloadExtraction: false
   },
   app: {
     head: {
@@ -22,7 +28,23 @@ export default defineNuxtConfig({
         { 
           name: 'description', 
           content: 'Hi! I\'m Phat, a passionate fullstack developer who loves gaming, coding, and building innovative projects. Connect with me on social media and explore my work.' 
-        }
+        },
+        { name: 'theme-color', content: '#667eea' },
+        { property: 'og:title', content: 'Phat - Fullstack Developer' },
+        { property: 'og:description', content: 'Passionate fullstack developer specializing in modern web technologies and innovative solutions.' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: '/images/profile.jpg' }
+      ],
+      link: [
+        // Preload critical assets
+        { rel: 'preload', href: '/images/profile.webp', as: 'image', type: 'image/webp' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        // DNS prefetch for external links
+        { rel: 'dns-prefetch', href: '//github.com' },
+        { rel: 'dns-prefetch', href: '//www.facebook.com' },
+        { rel: 'dns-prefetch', href: '//www.instagram.com' },
+        { rel: 'dns-prefetch', href: '//steamcommunity.com' }
       ]
     }
   }

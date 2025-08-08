@@ -7,7 +7,37 @@
                 <div class="profile-container">
                     <div class="profile-ring">
                         <div class="profile-image-wrapper">
-                            <img src="../images/profile.jpeg" alt="Profile Picture" class="profile-image" />
+                            <picture>
+                                <source 
+                                    media="(max-width: 480px)" 
+                                    srcset="/images/profile-sm.webp" 
+                                    type="image/webp"
+                                />
+                                <source 
+                                    media="(max-width: 768px)" 
+                                    srcset="/images/profile-md.webp" 
+                                    type="image/webp"
+                                />
+                                <source 
+                                    srcset="/images/profile.webp" 
+                                    type="image/webp"
+                                />
+                                <source 
+                                    media="(max-width: 480px)" 
+                                    srcset="/images/profile-sm.jpg"
+                                />
+                                <source 
+                                    media="(max-width: 768px)" 
+                                    srcset="/images/profile-md.jpg"
+                                />
+                                <img 
+                                    src="/images/profile.jpg" 
+                                    alt="Profile Picture" 
+                                    class="profile-image"
+                                    loading="eager"
+                                    decoding="async"
+                                />
+                            </picture>
                             <div class="profile-glow"></div>
                         </div>
                     </div>
@@ -170,11 +200,16 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+
 const currentText = ref('Building Amazing Apps ✨')
 const showCursor = ref(true)
 
-// Simple client-side only animation
-if (process.client) {
+// Lazy load animation only when needed
+onMounted(async () => {
+  if (process.client) {
+    // Small delay to prioritize critical rendering
+    await new Promise(resolve => setTimeout(resolve, 100));
   const texts = [
       'Building Amazing Apps ✨',
       'Creating Digital Magic 🎨',
@@ -220,14 +255,15 @@ if (process.client) {
     type()
   }
 
-  // Start typing animation after component mounts
-  setTimeout(startTyping, 1000)
-  
-  // Cursor blink
-  setInterval(() => {
-    showCursor.value = !showCursor.value
-  }, 500)
-}
+    // Start typing animation after component mounts
+    setTimeout(startTyping, 1000)
+    
+    // Cursor blink
+    setInterval(() => {
+      showCursor.value = !showCursor.value
+    }, 500)
+  }
+})
 </script>
 
 <style scoped>
