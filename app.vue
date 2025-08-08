@@ -7,7 +7,7 @@
         <div class="loader">
           <div class="loader-circle"></div>
         </div>
-        <h2 class="loading-text">PHATTY</h2>
+        <h2 class="loading-text">{{ loadingText }}</h2>
         <div class="progress-container">
           <div class="progress-bar">
             <div class="progress-fill" :style="{ width: progress + '%' }"></div>
@@ -20,7 +20,10 @@
     
     <!-- Main Content -->
     <div v-show="!isLoading" class="main-content" :class="{ 'fade-in': !isLoading }">
-      <NuxtPage />
+      <AppNavbar />
+      <main class="page-content">
+        <NuxtPage />
+      </main>
     </div>
   </div>
 </template>
@@ -28,6 +31,7 @@
 <script setup>
 const isLoading = ref(true)
 const progress = ref(0)
+const loadingText = ref('Loading')
 
 // Client-side only loading animation
 if (process.client) {
@@ -35,16 +39,37 @@ if (process.client) {
   const interval = 50
   const increment = 100 / (loadingDuration / interval)
   
+  // Loading text animation
+  const loadingTexts = ['Loading', 'Loading.', 'Loading..', 'Loading...']
+  let textIndex = 0
+  
+  const textInterval = setInterval(() => {
+    loadingText.value = loadingTexts[textIndex % loadingTexts.length]
+    textIndex++
+  }, 500)
+  
   const progressInterval = setInterval(() => {
     progress.value += increment
     
     if (progress.value >= 100) {
       progress.value = 100
       clearInterval(progressInterval)
+      clearInterval(textInterval)
+      
+      // แสดง "Ready!" ก่อนปิด loading screen
+      loadingText.value = 'Ready!'
+      
+      // เพิ่ม class สำหรับ ready animation
+      setTimeout(() => {
+        const loadingTextElement = document.querySelector('.loading-text')
+        if (loadingTextElement) {
+          loadingTextElement.classList.add('ready-state')
+        }
+      }, 100)
       
       setTimeout(() => {
         isLoading.value = false
-      }, 500)
+      }, 800)
     }
   }, interval)
   
@@ -65,6 +90,7 @@ if (process.client) {
 } else {
   // For SSR, show loading screen initially
   isLoading.value = true
+  loadingText.value = 'Loading'
 }
 </script>
 
@@ -116,6 +142,50 @@ if (process.client) {
   margin: 1rem 0;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   letter-spacing: 3px;
+  color: transparent;
+  background: linear-gradient(45deg, #ffffff, #f0f0f0, #e0e0e0, #ffffff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 200% 200%;
+  animation: loadingTextGlow 2s ease-in-out infinite;
+}
+
+@keyframes loadingTextGlow {
+  0%, 100% { 
+    background-position: 0% 50%;
+    transform: scale(1);
+  }
+  50% { 
+    background-position: 100% 50%;
+    transform: scale(1.05);
+  }
+}
+
+.loading-text.ready-state {
+  background: linear-gradient(45deg, #4ecdc4, #45b7d1, #96ceb4, #4ecdc4);
+  background-size: 300% 300%;
+  animation: readyGlow 0.8s ease-out, readyScale 0.8s ease-out;
+}
+
+@keyframes readyGlow {
+  0% { 
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 10px rgba(78, 205, 196, 0.3));
+  }
+  50% {
+    background-position: 50% 50%;
+    filter: drop-shadow(0 0 20px rgba(78, 205, 196, 0.6));
+  }
+  100% { 
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 15px rgba(78, 205, 196, 0.4));
+  }
+}
+
+@keyframes readyScale {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1.1); }
 }
 
 .progress-container {
@@ -188,6 +258,11 @@ if (process.client) {
 
 .main-content.fade-in {
   opacity: 1;
+}
+
+/* Page Content Spacing */
+.page-content {
+  padding-top: 70px;
 }
 
 /* Background Animation for Body */
